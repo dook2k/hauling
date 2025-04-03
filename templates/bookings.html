@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Bookings</title>
+</head>
+<body>
+  <h1>Scheduled Bookings</h1>
+  <ul>
+    {% for booking in bookings %}
+      <li>
+        <h3>Booking ID: {{ booking.id }}</h3>
+        <strong>Customer:</strong> {{ customers[booking.customer_id].name }} <br>
+        <strong>Address:</strong> {{ booking.address }} <br>
+        <strong>Date:</strong> {{ booking.scheduled_date }} <br>
+        <strong>Categories:</strong> {{ booking.categories }} <br>
+        <strong>Quote Estimate:</strong> ${{ quotes[booking.quote_id].price_estimate }} <br>
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

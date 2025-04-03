@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Quotes</title>
+</head>
+<body>
+  <h1>Submitted Quotes</h1>
+  <ul>
+    {% for quote in quotes %}
+      <li>
+        <h3>Quote ID: {{ quote.id }}</h3>
+        <strong>Customer:</strong> {{ customers[quote.customer_id].name }} <br>
+        <strong>Phone:</strong> {{ customers[quote.customer_id].phone }} <br>
+        <strong>Email:</strong> {{ customers[quote.customer_id].email }} <br>
+        <strong>Categories:</strong> {{ quote.categories }} <br>
+        <strong>Volume:</strong> {{ quote.estimated_volume }} cu yd <br>
+        <strong>Estimate:</strong> ${{ quote.price_estimate }} <br>
+        <strong>Accepted:</strong> {{ quote.accepted }} <br>
+        {% if quote.photo_path %}
+          <img src="/{{ quote.photo_path }}" alt="Uploaded junk photo" width="300"><br>
+        {% endif %}
+
+        {% if not quote.accepted %}
+          <form action="/admin/quotes/{{ quote.id }}/approve" method="post" style="margin-top: 10px;">
+            <button type="submit">Approve Quote</button>
+          </form>
+        {% endif %}
+
+        <form action="/admin/quotes/{{ quote.id }}/convert" method="post" style="margin-top: 10px;">
+          <label for="scheduled_date_{{ quote.id }}">Schedule Date:</label>
+          <input type="date" name="scheduled_date" id="scheduled_date_{{ quote.id }}" required>
+          <label for="address_{{ quote.id }}">Job Address:</label>
+          <input type="text" name="address" id="address_{{ quote.id }}" required>
+          <button type="submit">Convert to Booking</button>
+        </form>
+
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
