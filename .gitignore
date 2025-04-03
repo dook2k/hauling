@@ -1,0 +1,7 @@
+# Ignore Python virtual environment
+hauling_venv/
+__pycache__/
+*.pyc
+*.db
+uploads/
+.env
